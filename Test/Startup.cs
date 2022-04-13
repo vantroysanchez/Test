@@ -37,8 +37,8 @@ namespace Test
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test", Version = "v1" });
             });
-            //services.AddDbContext<dbTestSqlServerContext>(options =>
-            //            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<dbTestSqlServerContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDbContext<dbTestMySqlContext>(options =>
                         options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));

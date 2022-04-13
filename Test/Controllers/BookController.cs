@@ -14,10 +14,10 @@ namespace Test.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        //private readonly dbTestSqlServerContext _context;
-        private readonly dbTestMySqlContext _context;
+        private readonly dbTestSqlServerContext _context;
+        //private readonly dbTestMySqlContext _context;
 
-        public BookController(dbTestMySqlContext context)
+        public BookController(dbTestSqlServerContext context)
         {
             _context = context;
         }

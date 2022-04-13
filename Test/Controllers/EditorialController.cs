@@ -14,10 +14,10 @@ namespace Test.Controllers
     [ApiController]
     public class EditorialController : ControllerBase
     {
-        //private readonly dbTestSqlServerContext _context;
-        private readonly dbTestMySqlContext _context;
+        private readonly dbTestSqlServerContext _context;
+        //private readonly dbTestMySqlContext _context;
 
-        public EditorialController(dbTestMySqlContext context)
+        public EditorialController(dbTestSqlServerContext context)
         {
             _context = context;
         }
