@@ -30,6 +30,15 @@ namespace Test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "OriginsApp",
+                              policy =>
+                              {
+                                  policy.WithOrigins("http://localhost:3000",
+                                                      "https://polite-desert-0aff89110.1.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
+                              });
+            });
 
             services.AddControllers().AddJsonOptions(x =>
                     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
@@ -43,18 +52,7 @@ namespace Test
             services.AddDbContext<dbTestMySqlContext>(options =>
                         options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
 
-            services.AddCors(options =>
-            {
-                //options.AddPolicy("SpaLocal", builder =>
-                //{
-                //    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                //});
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:3000", "https://polite-desert-0aff89110.1.azurestaticapps.net/").AllowAnyHeader().AllowAnyMethod();
-                    });
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +69,7 @@ namespace Test
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("OriginsApp");
 
             app.UseAuthorization();
 
