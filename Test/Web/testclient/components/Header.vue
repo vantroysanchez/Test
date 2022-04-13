@@ -6,6 +6,7 @@
 
         <!-- Navbar dropdowns -->
         <b-nav-item-dropdown text="Menu" right>
+          <b-dropdown-item href="/weatherForecast">Prueba</b-dropdown-item>
           <b-dropdown-item href="/book">Libros</b-dropdown-item>
           <b-dropdown-item href="/editorial">Editoriales</b-dropdown-item>
         </b-nav-item-dropdown>

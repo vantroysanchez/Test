@@ -52,7 +52,7 @@ namespace Test
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                        builder.WithOrigins("http://localhost:3000", "https://polite-desert-0aff89110.1.azurestaticapps.net/").AllowAnyHeader().AllowAnyMethod();
                     });
             });
         }
