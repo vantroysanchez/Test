@@ -67,9 +67,11 @@ export default {
   },
   methods: {
     getAll() {
-      axios.get("https://localhost:44377/api/Editorial").then((result) => {
-        this.items = result.data.$values;
-      });
+      axios
+        .get("https://crudlibrary.azurewebsites.net/api/Editorial")
+        .then((result) => {
+          this.items = result.data.$values;
+        });
     },
     edit(id) {
       this.showModalEdit = true;
@@ -85,7 +87,7 @@ export default {
       }).then((willDelete) => {
         if (willDelete) {
           axios
-            .delete(`https://localhost:44377/api/Editorial/${id}`)
+            .delete(`https://crudlibrary.azurewebsites.net/api/Editorial/${id}`)
             .then((result) => {
               swal("Editorial eliminada!", {
                 icon: "success",

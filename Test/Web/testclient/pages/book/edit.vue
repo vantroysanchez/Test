@@ -86,20 +86,24 @@ export default {
   },
   methods: {
     getBook(id) {
-      axios.get(`https://localhost:44377/api/Book/${id}`).then((result) => {
-        this.book = result.data;
-      });
+      axios
+        .get(`https://crudlibrary.azurewebsites.net/api/Book/${id}`)
+        .then((result) => {
+          this.book = result.data;
+        });
     },
 
     getEditorial() {
-      axios.get("https://localhost:44377/api/Editorial").then((result) => {
-        this.editorial = result.data.$values;
-      });
+      axios
+        .get("https://crudlibrary.azurewebsites.net/api/Editorial")
+        .then((result) => {
+          this.editorial = result.data.$values;
+        });
     },
 
     Save(id) {
       axios
-        .put(`https://localhost:44377/api/Book/${id}`, this.book)
+        .put(`https://crudlibrary.azurewebsites.net/api/Book/${id}`, this.book)
         .then((result) => {
           swal(
             "Guardado",

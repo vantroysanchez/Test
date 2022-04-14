@@ -74,7 +74,7 @@ export default {
   methods: {
     getById(id) {
       axios
-        .get(`https://localhost:44377/api/Editorial/${id}`)
+        .get(`https://crudlibrary.azurewebsites.net/api/Editorial/${id}`)
         .then((result) => {
           this.editorial = result.data;
         });
@@ -82,7 +82,10 @@ export default {
 
     Save(id) {
       axios
-        .put(`https://localhost:44377/api/Editorial/${id}`, this.editorial)
+        .put(
+          `https://crudlibrary.azurewebsites.net/api/Editorial/${id}`,
+          this.editorial
+        )
         .then((result) => {
           swal(
             "Guardado",

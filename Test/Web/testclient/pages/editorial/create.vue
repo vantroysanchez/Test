@@ -68,7 +68,10 @@ export default {
   methods: {
     Save() {
       axios
-        .post("https://localhost:44377/api/Editorial", this.editorial)
+        .post(
+          "https://crudlibrary.azurewebsites.net/api/Editorial",
+          this.editorial
+        )
         .then((result) => {
           swal(
             "Guardado",

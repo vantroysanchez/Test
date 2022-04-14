@@ -68,9 +68,11 @@ export default {
   },
   methods: {
     getAll() {
-      axios.get("https://localhost:44377/api/Book").then((result) => {
-        this.items = result.data.$values;
-      });
+      axios
+        .get("https://crudlibrary.azurewebsites.net/api/Book")
+        .then((result) => {
+          this.items = result.data.$values;
+        });
     },
     edit(id) {
       this.showModalEdit = true;
@@ -86,7 +88,7 @@ export default {
       }).then((willDelete) => {
         if (willDelete) {
           axios
-            .delete(`https://localhost:44377/api/Book/${id}`)
+            .delete(`https://crudlibrary.azurewebsites.net/api/Book/${id}`)
             .then((result) => {
               swal("¡Libro eliminado!", {
                 icon: "success",
