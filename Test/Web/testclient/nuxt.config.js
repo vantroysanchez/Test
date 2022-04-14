@@ -4,8 +4,8 @@ import fs from 'fs'
 module.exports = {
   server: {
     https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'cert\\CA\\localhost\\localhost.decrypted.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'cert\\CA\\localhost\\localhost.crt'))
+      key: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.decrypted.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.crt'))
     }
   },
   

@@ -28,8 +28,7 @@ namespace Test
                 options.AddPolicy(name: "OriginsApp",
                               policy =>
                               {
-                                  policy.WithOrigins("https://localhost:44377/",
-                                                      "https://polite-desert-0aff89110.1.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
+                                  policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                               });
             });
 
