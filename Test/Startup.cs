@@ -1,19 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using Test.Models;
 using Test.Models.Context;
 
 namespace Test
@@ -35,9 +27,14 @@ namespace Test
                 options.AddPolicy(name: "OriginsApp",
                               policy =>
                               {
-                                  policy.WithOrigins("http://localhost:3000",
+                                  policy.WithOrigins("https://localhost:44377/",
                                                       "https://polite-desert-0aff89110.1.azurestaticapps.net").AllowAnyHeader().AllowAnyMethod();
                               });
+            });
+
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Web/testclient/dist";
             });
 
             services.AddControllers().AddJsonOptions(x =>
@@ -67,6 +64,13 @@ namespace Test
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
+            if (!env.IsDevelopment())
+            {
+                app.UseSpaStaticFiles();
+            }
+
             app.UseRouting();
 
             app.UseCors("OriginsApp");
@@ -76,6 +80,16 @@ namespace Test
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Web/testclient";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
+                }
             });
         }
     }

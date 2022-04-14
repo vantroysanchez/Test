@@ -1,4 +1,14 @@
-export default {
+import path from 'path'
+import fs from 'fs'
+
+module.exports = {
+  server: {
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'cert\\CA\\localhost\\localhost.decrypted.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'cert\\CA\\localhost\\localhost.crt'))
+    }
+  },
+  
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
