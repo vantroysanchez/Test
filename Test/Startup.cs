@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
+using Test.Helpers;
 using Test.Models.Context;
 
 namespace Test
@@ -88,7 +89,8 @@ namespace Test
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
+                    spa.UseNuxtDevelopmentServer();
+                    //spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
                 }
             });
         }

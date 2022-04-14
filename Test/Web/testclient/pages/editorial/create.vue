@@ -8,7 +8,7 @@
       >[+] Agregar editorial</b-button
     >
     <b-modal v-model="showModalCreate" id="modal-create" size="lg">
-      <template #modal-title> Crear libro </template>
+      <template #modal-title> Crear Editorial </template>
       <div>
         <b-form>
           <b-row>
