@@ -8,11 +8,11 @@ module.exports = {
   //     cert: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.crt'))
   //   }
   // },
-  // server: {
-  //   port:  process.env.PORT, // default: 3000
-  //   host: '0.0.0.0', // default: localhost
-  //   NODE_ENV: 'production'
-  // },
+  server: {
+    port:  process.env.PORT, // default: 3000
+    host: '0.0.0.0', // default: localhost
+    NODE_ENV: 'production'
+  },
   
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
