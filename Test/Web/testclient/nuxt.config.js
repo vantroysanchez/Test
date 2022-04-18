@@ -2,12 +2,17 @@ import path from 'path'
 import fs from 'fs'
 
 module.exports = {
-  server: {
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.decrypted.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.crt'))
-    }
-  },
+  // server: {
+  //   https: {
+  //     key: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.decrypted.key')),
+  //     cert: fs.readFileSync(path.resolve(__dirname, 'cert/CA/localhost/localhost.crt'))
+  //   }
+  // },
+  // server: {
+  //   port:  process.env.PORT, // default: 3000
+  //   host: '0.0.0.0', // default: localhost
+  //   NODE_ENV: 'production'
+  // },
   
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
