@@ -87,7 +87,7 @@ export default {
   methods: {
     getBook(id) {
       axios
-        .get(`https://crudlibrary.azurewebsites.net/api/Book/${id}`)
+        .get(`https://localhost:44377/api/Book/${id}`)
         .then((result) => {
           this.book = result.data;
         });
@@ -95,7 +95,7 @@ export default {
 
     getEditorial() {
       axios
-        .get("https://crudlibrary.azurewebsites.net/api/Editorial")
+        .get("https://localhost:44377/api/Editorial")
         .then((result) => {
           this.editorial = result.data.$values;
         });
@@ -103,7 +103,7 @@ export default {
 
     Save(id) {
       axios
-        .put(`https://crudlibrary.azurewebsites.net/api/Book/${id}`, this.book)
+        .put(`https://localhost:44377/api/Book/${id}`, this.book)
         .then((result) => {
           swal(
             "Guardado",

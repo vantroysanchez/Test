@@ -5,23 +5,45 @@
       v-b-modal.modal-create
       variant="outline-dark"
       class="float-right mb-3"
-      >[+] Agregar editorial</b-button
+      >[+] Agregar Usuario</b-button
     >
     <b-modal v-model="showModalCreate" id="modal-create" size="lg">
-      <template #modal-title> Crear Editorial </template>
+      <template #modal-title> Crear Usuario </template>
       <div>
         <b-form>
           <b-row>
             <b-col>
               <label class="mr-sm-2" for="inline-form-input-name"
-                >Description</label
+                >Nombre</label
               >
               <b-form-input
                 id="inline-form-input-name"
                 class="mb-2 mr-sm-2 mb-sm-0"
                 placeholder="Nombre del libro"
-                v-model="editorial.description"
+                v-model="user.username"
               ></b-form-input>
+            </b-col>
+            <b-col>
+              <label class="mr-sm-2" for="inline-form-input-name"
+                >Apellido</label
+              >
+              <b-form-input
+                id="inline-form-input-name"
+                class="mb-2 mr-sm-2 mb-sm-0"
+                placeholder="Nombre del libro"
+                v-model="user.lastname"
+              ></b-form-input>
+            </b-col>
+            <b-col>
+              <label class="mr-sm-2">Libro</label>
+              <b-form-select v-model="user.bookId">
+                <b-form-select-option
+                  :key="index"
+                  v-for="(item, index) in book"
+                  :value="item.id"
+                  >{{ item.description }}</b-form-select-option
+                >
+              </b-form-select>
             </b-col>
           </b-row>
         </b-form>
@@ -59,19 +81,27 @@ export default {
   data() {
     return {
       showModalCreate: false,
-      editorial: {
-        description: "",
-        status: true,
+      user: {
+        username: "",
+        lastname: "",
+        bookId: 1,
+        book: null,
       },
+      book: [{}],
     };
   },
   methods: {
+    getBook() {
+      axios
+        .get("https://localhost:44377/api/Book")
+        .then((result) => {
+          this.book = result.data.$values;
+        });
+    },
+
     Save() {
       axios
-        .post(
-          "https://localhost:44377/api/Editorial",
-          this.editorial
-        )
+        .post("https://localhost:44377/api/User", this.user)
         .then((result) => {
           swal(
             "Guardado",
@@ -81,6 +111,9 @@ export default {
           this.$router.go(0);
         });
     },
+  },
+  created() {
+    this.getBook();
   },
 };
 </script>

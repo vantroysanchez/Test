@@ -1,29 +1,40 @@
 <template>
   <div>
     <b-modal v-model="showModalEdit" id="modal-edit" size="lg">
-      <template #modal-title> Editar libro </template>
+      <template #modal-title> Editar Usuario </template>
       <div>
         <b-form>
           <b-row>
             <b-col>
               <label class="mr-sm-2" for="inline-form-input-name"
-                >Description</label
+                >Nombre</label
               >
               <b-form-input
                 id="inline-form-input-name"
                 class="mb-2 mr-sm-2 mb-sm-0"
                 placeholder="Nombre del libro"
-                v-model="editorial.description"
+                v-model="user.userName"
+              ></b-form-input>
+            </b-col>
+                        <b-col>
+              <label class="mr-sm-2" for="inline-form-input-name"
+                >Apellido</label
+              >
+              <b-form-input
+                id="inline-form-input-name"
+                class="mb-2 mr-sm-2 mb-sm-0"
+                placeholder="Nombre del libro"
+                v-model="user.lastName"
               ></b-form-input>
             </b-col>
             <b-col>
-              <label class="mr-sm-2">Status</label>
-              <b-form-select v-model="editorial.status">
-                <b-form-select-option :value="true"
-                  >Activo</b-form-select-option
-                >
-                <b-form-select-option :value="false"
-                  >Inactivo</b-form-select-option
+              <label class="mr-sm-2">Libro</label>
+              <b-form-select v-model="user.bookId">
+                <b-form-select-option
+                  :key="index"
+                  v-for="(item, index) in book"
+                  :value="item.id"
+                  >{{ item.description }}</b-form-select-option
                 >
               </b-form-select>
             </b-col>
@@ -36,7 +47,7 @@
             variant="primary"
             size="sm"
             class="float-right"
-            @click="Save(editorial.id)"
+            @click="Save(user.id)"
           >
             Guardar
           </b-button>
@@ -64,28 +75,37 @@ export default {
   data() {
     return {
       showModalEdit: false,
-      editorial: {
+      user: {
+        userName:"",
+        lastName:"",
         description: "",
-        status: true,
+        bookId: 1,
+        book: null,
       },
-      editorial: [{}],
+      book: [{}],
     };
   },
   methods: {
-    getById(id) {
+    getUser(id) {
       axios
-        .get(`https://localhost:44377/api/Editorial/${id}`)
+        .get(`https://localhost:44377/api/User/${id}`)
         .then((result) => {
-          this.editorial = result.data;
+          this.user = result.data;
+        });
+    },
+
+    getBook() {
+      axios
+        .get("https://localhost:44377/api/Book")
+        .then((result) => {
+          this.book = result.data.$values;
         });
     },
 
     Save(id) {
+        debugger
       axios
-        .put(
-          `https://localhost:44377/api/Editorial/${id}`,
-          this.editorial
-        )
+        .put(`https://localhost:44377/api/User/${id}`, this.user)
         .then((result) => {
           swal(
             "Guardado",
@@ -98,8 +118,11 @@ export default {
   },
   watch: {
     EntityId(newValue, oldValue) {
-      this.getById(newValue);
+      this.getUser(newValue);
     },
+  },
+  created() {
+    this.getBook();
   },
 };
 </script>

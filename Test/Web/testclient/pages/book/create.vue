@@ -82,7 +82,7 @@ export default {
   methods: {
     getEditorial() {
       axios
-        .get("https://crudlibrary.azurewebsites.net/api/Editorial")
+        .get("https://localhost:44377/api/Editorial")
         .then((result) => {
           this.editorial = result.data.$values;
         });
@@ -90,7 +90,7 @@ export default {
 
     Save() {
       axios
-        .post("https://crudlibrary.azurewebsites.net/api/Book", this.book)
+        .post("https://localhost:44377/api/Book", this.book)
         .then((result) => {
           swal(
             "Guardado",

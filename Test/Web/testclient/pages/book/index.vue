@@ -69,7 +69,7 @@ export default {
   methods: {
     getAll() {
       axios
-        .get("https://crudlibrary.azurewebsites.net/api/Book")
+        .get("https://localhost:44377/api/Book")
         .then((result) => {
           this.items = result.data.$values;
         });
@@ -88,7 +88,7 @@ export default {
       }).then((willDelete) => {
         if (willDelete) {
           axios
-            .delete(`https://crudlibrary.azurewebsites.net/api/Book/${id}`)
+            .delete(`https://localhost:44377/api/Book/${id}`)
             .then((result) => {
               swal("¡Libro eliminado!", {
                 icon: "success",

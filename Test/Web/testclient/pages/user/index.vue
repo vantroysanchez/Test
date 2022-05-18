@@ -1,9 +1,6 @@
 <template>
   <div>
-    <b-card
-      title="Editoriales"
-      sub-title="Mantenimiento de las editoriales de los libros"
-    >
+    <b-card title="Usuarios " sub-title="Mantenimiento de usuarios">
       <create />
       <edit :EntityId="IdEditValue" />
       <b-table v-if="items" striped hover :items="items" :fields="fields">
@@ -47,15 +44,16 @@ export default {
           key: "id",
         },
         {
-          key: "description",
+          key: "userName",
+          label: "Nombre",
         },
         {
-          key: "status",
-          formatter: (value) => {
-            if (value) return "Activo";
-
-            return "Inactivo";
-          },
+          key: "lastName",
+          label: "Apellido",
+        },
+        {
+          key: "book.description",
+          label: "Libro",
         },
         {
           key: "action",
@@ -68,7 +66,7 @@ export default {
   methods: {
     getAll() {
       axios
-        .get("https://localhost:44377/api/Editorial")
+        .get("https://localhost:44377/api/User")
         .then((result) => {
           this.items = result.data.$values;
         });
@@ -79,17 +77,17 @@ export default {
     },
     remove(id) {
       swal({
-        title: "Eliminar Editorial",
-        text: "¿Está seguro que desea eliminar esta editorial?",
+        title: "Eliminar usuario",
+        text: "¿Está seguro que desea eliminar este usuario?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
           axios
-            .delete(`https://localhost:44377/api/Editorial/${id}`)
+            .delete(`https://localhost:44377/api/User/${id}`)
             .then((result) => {
-              swal("Editorial eliminada!", {
+              swal("¡Usuario eliminado!", {
                 icon: "success",
               });
               this.$router.go(0);
