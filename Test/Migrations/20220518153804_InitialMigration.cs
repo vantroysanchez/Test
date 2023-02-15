@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Test.Migrations.SqlServerMigrations
+namespace Test.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,14 +41,43 @@ namespace Test.Migrations.SqlServerMigrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
+                    BookId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Book",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Book_EditorialId",
                 table: "Book",
                 column: "EditorialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_BookId",
+                table: "User",
+                column: "BookId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "User");
+
             migrationBuilder.DropTable(
                 name: "Book");
 

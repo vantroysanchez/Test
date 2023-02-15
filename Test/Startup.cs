@@ -46,9 +46,8 @@ namespace Test
             services.AddDbContext<dbTestSqlServerContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<dbTestMySqlContext>(options =>
-                        options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-
+            //services.AddDbContext<dbTestMySqlContext>(options =>
+            //            options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
             
         }
 

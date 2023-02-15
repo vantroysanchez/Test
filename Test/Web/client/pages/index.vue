@@ -21,6 +21,13 @@
             </nuxt-link>
           </b-card-text>
         </b-card>
+        <b-card bg-variant="light" header="Usuarios" class="text-center">
+          <b-card-text>
+            <nuxt-link to="/user" class="text-secondary">
+              Mantenimiento para gestión de los usuarios.
+            </nuxt-link>
+          </b-card-text>
+        </b-card>
       </b-card-group>
     </div>
   </div>

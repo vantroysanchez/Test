@@ -5,14 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Test.Models;
 using Test.Models.Context;
 
-namespace Test.Migrations.SqlServerMigrations
+namespace Test.Migrations
 {
     [DbContext(typeof(dbTestSqlServerContext))]
-    [Migration("20220412185946_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220518153804_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,6 +65,31 @@ namespace Test.Migrations.SqlServerMigrations
                     b.ToTable("Editorial");
                 });
 
+            modelBuilder.Entity("Test.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("User");
+                });
+
             modelBuilder.Entity("Test.Models.Book", b =>
                 {
                     b.HasOne("Test.Models.Editorial", "Editorial")
@@ -74,6 +98,21 @@ namespace Test.Migrations.SqlServerMigrations
                         .HasConstraintName("FK_Book_Editorial");
 
                     b.Navigation("Editorial");
+                });
+
+            modelBuilder.Entity("Test.Models.User", b =>
+                {
+                    b.HasOne("Test.Models.Book", "Book")
+                        .WithMany("Users")
+                        .HasForeignKey("BookId")
+                        .HasConstraintName("FK_User_Book");
+
+                    b.Navigation("Book");
+                });
+
+            modelBuilder.Entity("Test.Models.Book", b =>
+                {
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Test.Models.Editorial", b =>
