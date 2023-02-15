@@ -39,7 +39,7 @@ namespace Test.Helpers
                 {
                     FileName = isWindows ? "cmd" : "npm",
                     Arguments = $"{(isWindows ? "/c npm " : "")}run dev",
-                    WorkingDirectory = "Web/testclient",
+                    WorkingDirectory = "Web/client/",
                     RedirectStandardError = true,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,

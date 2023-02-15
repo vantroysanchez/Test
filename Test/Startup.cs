@@ -34,7 +34,7 @@ namespace Test
 
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "Web/testclient/dist";
+                configuration.RootPath = "Web/client/dist";
             });
 
             services.AddControllers().AddJsonOptions(x =>
@@ -84,7 +84,7 @@ namespace Test
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "Web/testclient";
+                spa.Options.SourcePath = "Web/client";
 
                 if (env.IsDevelopment())
                 {
