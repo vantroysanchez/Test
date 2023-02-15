@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Test.Models.Context;
 
-namespace Infrastructure.Persistence.Context
+namespace Test.Models.Context
 {
     public class ApplicationDbContextInitialiser
     {        
