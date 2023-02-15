@@ -1,3 +1,4 @@
+using Infrastructure.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Test.Helpers;
 using Test.Models.Context;
@@ -46,9 +48,11 @@ namespace Test
             services.AddDbContext<dbTestSqlServerContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDbContext<dbTestMySqlContext>(options =>
-            //            options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
-            
+            services.AddDbContext<dbTestMySqlContext>(options =>
+                        options.UseMySQL(Configuration.GetConnectionString("MySqlConnection")));
+
+            services.AddScoped<ApplicationDbContextInitialiser>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +63,15 @@ namespace Test
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test v1"));
+
+                app.UseMigrationsEndPoint();
+
+                // Initialise and seed database
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+                    initialiser.InitialiseAsync();
+                }
             }
 
             app.UseHttpsRedirection();

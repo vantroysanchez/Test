@@ -24,7 +24,14 @@ namespace Test.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.Include(e => e.Book).OrderByDescending(b => b.Id).AsNoTracking().ToListAsync();
+            var users = await _context.Users.Include(e => e.Book).OrderByDescending(b => b.Id).AsNoTracking().ToListAsync();
+
+            if (users == null)
+            {
+                return NotFound();
+            }
+
+            return users;
         }
 
         // GET: api/User/5
