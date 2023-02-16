@@ -66,7 +66,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import swal from "sweetalert";
 
 export default {
@@ -86,24 +85,24 @@ export default {
   },
   methods: {
     getBook(id) {
-      axios
-        .get(`https://localhost:44377/api/Book/${id}`)
+      this.$axios
+        .get(`/Book/${id}`)
         .then((result) => {
           this.book = result.data;
         });
     },
 
     getEditorial() {
-      axios
-        .get("https://localhost:44377/api/Editorial")
+      this.$axios
+        .get("/Editorial")
         .then((result) => {
           this.editorial = result.data.$values;
         });
     },
 
     Save(id) {
-      axios
-        .put(`https://localhost:44377/api/Book/${id}`, this.book)
+      this.$axios
+        .put(`/Book/${id}`, this.book)
         .then((result) => {
           swal(
             "Guardado",

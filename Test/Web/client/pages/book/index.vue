@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import create from "./create.vue";
 import edit from "./edit.vue";
 import swal from "sweetalert";
@@ -68,8 +67,8 @@ export default {
   },
   methods: {
     getAll() {
-      axios
-        .get("https://localhost:44377/api/Book")
+      this.$axios
+        .get("/Book")
         .then((result) => {
           this.items = result.data.$values;
         });
@@ -87,8 +86,8 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          axios
-            .delete(`https://localhost:44377/api/Book/${id}`)
+          this.$axios
+            .delete(`/Book/${id}`)
             .then((result) => {
               swal("¡Libro eliminado!", {
                 icon: "success",

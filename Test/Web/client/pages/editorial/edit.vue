@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import swal from "sweetalert";
 
 export default {
@@ -73,17 +72,16 @@ export default {
   },
   methods: {
     getById(id) {
-      axios
-        .get(`https://localhost:44377/api/Editorial/${id}`)
+      this.$axios
+        .get(`/Editorial/${id}`)
         .then((result) => {
           this.editorial = result.data;
         });
     },
 
     Save(id) {
-      axios
-        .put(
-          `https://localhost:44377/api/Editorial/${id}`,
+      this.$axios
+        .put(`/Editorial/${id}`,
           this.editorial
         )
         .then((result) => {

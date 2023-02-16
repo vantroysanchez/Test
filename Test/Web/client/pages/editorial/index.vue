@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import create from "./create.vue";
 import edit from "./edit.vue";
 import swal from "sweetalert";
@@ -67,8 +66,8 @@ export default {
   },
   methods: {
     getAll() {
-      axios
-        .get("https://localhost:44377/api/Editorial")
+      this.$axios
+        .get("/Editorial")
         .then((result) => {
           this.items = result.data.$values;
         });
@@ -86,8 +85,8 @@ export default {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
-          axios
-            .delete(`https://localhost:44377/api/Editorial/${id}`)
+          this.$axios
+            .delete(`/Editorial/${id}`)
             .then((result) => {
               swal("Editorial eliminada!", {
                 icon: "success",

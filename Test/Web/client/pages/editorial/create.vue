@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import swal from "sweetalert";
 
 export default {
@@ -67,9 +66,8 @@ export default {
   },
   methods: {
     Save() {
-      axios
-        .post(
-          "https://localhost:44377/api/Editorial",
+      this.$axios
+        .post("/Editorial",
           this.editorial
         )
         .then((result) => {
